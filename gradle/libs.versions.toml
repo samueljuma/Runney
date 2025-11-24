@@ -1,6 +1,6 @@
 [versions]
 agp = "8.12.3"
-kotlin = "2.2.20"
+kotlin = "2.2.21"
 coreKtx = "1.17.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
@@ -15,7 +15,6 @@ androidTools = "31.2.2"
 playFeatureDelivery = "2.3.0"
 coreSplashscreen = "1.0.1"
 coilCompose = "2.7.0"
-composeCompiler = "1.5.9"
 desugar_jdk_libs = "2.1.5"
 ktor = "3.3.0"
 ktorClientLogging = "3.3.0"
@@ -25,7 +24,7 @@ materialIconsExtended = "1.7.8"
 navigationCompose = "2.9.5"
 securityCryptoKtx = "1.1.0"
 timber = "5.0.1"
-ksp = "1.9.22-1.0.17"
+ksp = "2.2.21-2.0.4"
 room = "2.8.1"
 maps = "6.11.0"
 coroutines = "1.10.2"
@@ -125,3 +124,4 @@ mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.
 androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp" }
 
 runney-android-application = { id = "runney.android.application", version = "unspecified"}
+runney-android-application-compose = { id = "runney.android.application.compose", version = "unspecified"}
