@@ -123,3 +123,5 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin"}
 androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp" }
+
+runney-android-application = { id = "runney.android.application", version = "unspecified"}
