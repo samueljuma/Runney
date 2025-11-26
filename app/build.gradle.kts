@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.runney.android.application.compose)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.runney.jvm.ktor)
     alias(libs.plugins.mapsplatform.secrets.plugin)
 }
 
