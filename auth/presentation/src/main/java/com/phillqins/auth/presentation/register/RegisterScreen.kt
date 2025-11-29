@@ -43,6 +43,7 @@ import com.phillqins.core.presentation.designsystem.components.RunneyPasswordTex
 import com.phillqins.core.presentation.designsystem.components.RunneyTextField
 import org.koin.androidx.compose.koinViewModel
 
+
 @Composable
 fun RegisterScreenRoot(
     onSignInClick: () -> Unit,
@@ -68,6 +69,7 @@ private fun RegisterScreen(
                 .padding(vertical = 16.dp, horizontal = 32.dp)
                 .padding(top = 16.dp)
         ) {
+            Spacer(modifier = Modifier.height(32.dp))
             Text(
                 text = stringResource(R.string.create_account),
                 style = MaterialTheme.typography.headlineMedium
