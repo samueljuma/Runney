@@ -29,7 +29,7 @@ class HttpClientFactory {
             install(Logging){
                 logger = object  : Logger{
                     override fun log(message: String) {
-                        Timber.d(message)
+                        Timber.d("Ktor Logger: $message")
                     }
                 }
                 level = LogLevel.ALL
