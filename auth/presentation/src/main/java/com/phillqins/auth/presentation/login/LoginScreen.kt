@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
@@ -33,15 +34,40 @@ import com.phillqins.core.presentation.designsystem.components.GradientBackgroun
 import com.phillqins.core.presentation.designsystem.components.RunneyActionButton
 import com.phillqins.core.presentation.designsystem.components.RunneyPasswordTextField
 import com.phillqins.core.presentation.designsystem.components.RunneyTextField
+import com.phillqins.core.presentation.ui.ObserveAsEvents
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreenRoot(
+    onLoginSuccess: () -> Unit,
+    onSignUpClick: () -> Unit,
     viewModel: LoginViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+    ObserveAsEvents(viewModel.event) {event ->
+        when(event){
+            is LoginEvent.Error -> {
+                keyboardController?.hide()
+                Toast.makeText(context, event.error.asString(context), Toast.LENGTH_LONG).show()
+            }
+            LoginEvent.LoginSuccess -> {
+                keyboardController?.hide()
+                Toast.makeText(context, R.string.youre_logged_in, Toast.LENGTH_LONG).show()
+
+                onLoginSuccess()
+            }
+        }
+    }
     LoginScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when(action){
+                is LoginAction.OnRegisterClick -> onSignUpClick()
+                else -> {}
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 

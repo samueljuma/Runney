@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import com.phillqins.auth.domain.PasswordValidationState
 import com.phillqins.auth.domain.UserDataValidator
 import com.phillqins.auth.presentation.R
+import com.phillqins.auth.presentation.login.LoginAction
 import com.phillqins.core.presentation.designsystem.CheckIcon
 import com.phillqins.core.presentation.designsystem.CrossIcon
 import com.phillqins.core.presentation.designsystem.EmailIcon
@@ -71,7 +72,13 @@ fun RegisterScreenRoot(
     }
     RegisterScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when(action){
+                is RegisterAction.OnLoginClick -> onSignInClick()
+                else -> {}
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 
