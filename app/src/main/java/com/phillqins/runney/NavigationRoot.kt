@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.phillqins.auth.presentation.intro.IntroScreenRoot
+import com.phillqins.auth.presentation.login.LoginScreenRoot
 import com.phillqins.auth.presentation.register.RegisterScreenRoot
 
 @Composable
@@ -48,7 +49,7 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
             )
         }
         composable(route = "login") {
-            Text(text = "Login")
+            LoginScreenRoot()
         }
     }
 }
