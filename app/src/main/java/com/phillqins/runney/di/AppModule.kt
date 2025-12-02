@@ -3,7 +3,9 @@ package com.phillqins.runney.di
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.phillqins.runney.MainViewModel
 import org.koin.android.ext.koin.androidApplication
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 
@@ -17,4 +19,5 @@ val appModule = module {
             prefValueEncryptionScheme = EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
+    viewModelOf(::MainViewModel)
 }
