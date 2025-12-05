@@ -4,6 +4,7 @@ import android.app.Application
 import com.phillqins.auth.data.di.authDataModule
 import com.phillqins.auth.presentation.di.authViewModelModule
 import com.phillqins.core.data.di.coreDataModule
+import com.phillqins.run.presentation.di.runViewModelModule
 import com.phillqins.runney.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -23,7 +24,8 @@ class RunneyApp: Application() {
                 authDataModule,
                 authViewModelModule,
                 coreDataModule,
-                appModule
+                appModule,
+                runViewModelModule
             )
         }
     }
