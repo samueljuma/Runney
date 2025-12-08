@@ -6,9 +6,9 @@ class RunOverviewViewModel(): ViewModel(){
 
     fun onAction(action: RunOverviewAction){
         when(action){
-            is RunOverviewAction.OnAnalyticsClick -> TODO()
-            is RunOverviewAction.OnLogoutClick -> TODO()
-            is RunOverviewAction.OnStartClick -> TODO()
+            is RunOverviewAction.OnAnalyticsClick -> {}
+            is RunOverviewAction.OnLogoutClick -> {}
+            is RunOverviewAction.OnStartClick -> {}
         }
     }
 }
