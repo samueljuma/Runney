@@ -27,6 +27,7 @@ import com.phillqins.core.presentation.designsystem.PauseIcon
 import com.phillqins.core.presentation.designsystem.RunneyTheme
 import com.phillqins.core.presentation.designsystem.StartIcon
 import com.phillqins.core.presentation.designsystem.StopIcon
+import com.phillqins.core.presentation.designsystem.components.RunneyActionButton
 import com.phillqins.core.presentation.designsystem.components.RunneyDialog
 import com.phillqins.core.presentation.designsystem.components.RunneyFloatingActionButton
 import com.phillqins.core.presentation.designsystem.components.RunneyOutlinedActionButton
@@ -151,6 +152,37 @@ private fun ActiveRunScreen(
         }
 
     }
+
+    if(!state.shouldTrack && state.hasStartedRunning){
+        RunneyDialog(
+            title = stringResource(R.string.running_is_paused),
+            description = stringResource(R.string.running_or_finish_run),
+            onDismiss = {
+                onAction(ActiveRunAction.OnResumeRunClick)
+            },
+            primaryButton = {
+                RunneyActionButton(
+                    text = stringResource(R.string.resume),
+                    isLoading = false,
+                    onClick = {
+                        onAction(ActiveRunAction.OnResumeRunClick)
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            },
+            secondaryButton = {
+                RunneyOutlinedActionButton(
+                    text = stringResource(R.string.finish),
+                    isLoading = state.isSavingRun,
+                    onClick = {
+                        onAction(ActiveRunAction.OnFinishRunClick)
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        )
+    }
+
     if(state.showLocationRationale || state.showNotificationRationale){
         RunneyDialog(
             title = stringResource(R.string.permission_required),
