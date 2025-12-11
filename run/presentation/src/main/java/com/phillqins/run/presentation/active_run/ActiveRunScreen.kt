@@ -34,6 +34,7 @@ import com.phillqins.core.presentation.designsystem.components.RunneyScaffold
 import com.phillqins.core.presentation.designsystem.components.RunneyToolbar
 import com.phillqins.run.presentation.R
 import com.phillqins.run.presentation.active_run.components.RunDataCard
+import com.phillqins.run.presentation.active_run.maps.TrackerMap
 import com.phillqins.run.presentation.util.hasLocationPermission
 import com.phillqins.run.presentation.util.hasNotificationPermission
 import com.phillqins.run.presentation.util.shouldShowLocationPermissionRationale
@@ -132,6 +133,13 @@ private fun ActiveRunScreen(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
         ){
+            TrackerMap(
+                isRunFinished = state.isRunFinished,
+                currentLocation = state.currentLocation,
+                locations = state.runData.locations,
+                onSnapShot = {},
+                modifier = Modifier.fillMaxSize()
+            )
             RunDataCard(
                 elapsedTime = state.elapsedTime,
                 runData = state.runData,
