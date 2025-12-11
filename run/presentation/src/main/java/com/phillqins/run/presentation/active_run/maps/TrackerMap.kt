@@ -92,6 +92,7 @@ fun TrackerMap(
             mapLoaded = true
         }
     ) {
+        RunneyPolylines(locations = locations,)
         if(!isRunFinished && currentLocation != null) {
             MarkerComposable(
                 currentLocation,
