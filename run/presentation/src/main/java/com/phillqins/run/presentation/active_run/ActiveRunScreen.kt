@@ -36,6 +36,7 @@ import com.phillqins.core.presentation.designsystem.components.RunneyToolbar
 import com.phillqins.run.presentation.R
 import com.phillqins.run.presentation.active_run.components.RunDataCard
 import com.phillqins.run.presentation.active_run.maps.TrackerMap
+import com.phillqins.run.presentation.active_run.service.ActiveRunService
 import com.phillqins.run.presentation.util.hasLocationPermission
 import com.phillqins.run.presentation.util.hasNotificationPermission
 import com.phillqins.run.presentation.util.shouldShowLocationPermissionRationale
@@ -44,10 +45,12 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ActiveRunScreenRoot(
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     viewModel: ActiveRunViewModel = koinViewModel()
 ) {
     ActiveRunScreen(
         state = viewModel.state,
+        onServiceToggle = onServiceToggle,
         onAction = viewModel::onAction
     )
 }
@@ -55,6 +58,7 @@ fun ActiveRunScreenRoot(
 @Composable
 private fun ActiveRunScreen(
     state: ActiveRunState,
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     onAction: (ActiveRunAction) -> Unit
 ) {
     val context = LocalContext.current
@@ -105,6 +109,18 @@ private fun ActiveRunScreen(
 
         if(!showLocationRationale && !showNotificationRationale){
             permissionLauncher.requestRunneyPermissions(context)
+        }
+    }
+
+    LaunchedEffect(key1 = state.isRunFinished) {
+        if(state.isRunFinished) {
+            onServiceToggle(false)
+        }
+    }
+
+    LaunchedEffect(key1 = state.shouldTrack) {
+        if(context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive) {
+            onServiceToggle(true)
         }
     }
     RunneyScaffold(
@@ -239,6 +255,7 @@ private fun ActiveRunScreenPreview() {
     RunneyTheme{
        ActiveRunScreen(
            state = ActiveRunState(),
+           onServiceToggle = {},
            onAction = {}
        )
    }
