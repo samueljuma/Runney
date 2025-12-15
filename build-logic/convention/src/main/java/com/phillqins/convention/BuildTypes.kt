@@ -52,8 +52,8 @@ internal fun Project.configureBuildTypes(
 
 private fun BuildType.configureDebugBuildType(apiKey: String){
     buildConfigField("String", "API_KEY", "\"$apiKey\"")
-//    buildConfigField("String", "BASE_URL", "\"http://192.168.1.101:8080\"") // Home
-    buildConfigField("String", "BASE_URL", "\"http://192.168.88.17:8080\"") // BuuPass
+//    buildConfigField("String", "BASE_URL", "\"http://192.168.1.104:8080\"") // Home
+    buildConfigField("String", "BASE_URL", "\"http://192.168.88.47:8080\"") // BuuPass
 }
 
 private fun BuildType.configureReleaseBuildType(
@@ -61,8 +61,8 @@ private fun BuildType.configureReleaseBuildType(
     apiKey: String
 ){
     buildConfigField("String", "API_KEY", "\"$apiKey\"")
-//    buildConfigField("String", "BASE_URL", "\"http://192.168.1.101:8080\"") //Home
-    buildConfigField("String", "BASE_URL", "\"http://192.168.88.17:8080\"") // BuuPass
+//    buildConfigField("String", "BASE_URL", "\"http://192.168.1.104:8080\"") //Home
+    buildConfigField("String", "BASE_URL", "\"http://192.168.88.47:8080\"") // BuuPass
 
     isMinifyEnabled = true
     proguardFiles(

@@ -1,15 +1,19 @@
 package com.phillqins.runney
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
 import com.phillqins.auth.presentation.intro.IntroScreenRoot
 import com.phillqins.auth.presentation.login.LoginScreenRoot
 import com.phillqins.auth.presentation.register.RegisterScreenRoot
+import com.phillqins.run.presentation.active_run.ActiveRunScreenRoot
+import com.phillqins.run.presentation.active_run.service.ActiveRunService
+import com.phillqins.run.presentation.run_overview.RunOverviewScreenRoot
 
 @Composable
 fun NavigationRoot(
@@ -79,8 +83,34 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController){
         route = "run"
     ){
         composable(route = "run_overview"){
-            Text(text = "Run Overview")
+            RunOverviewScreenRoot(
+                onStartRunClick = {
+                    navController.navigate("active_run")
+                }
+            )
         }
+        composable(
+            route = "active_run",
+            deepLinks = listOf(
+                navDeepLink {
+                    uriPattern = "runney://active_run"
+                }
+            )
+        ){
+            val context = LocalContext.current
+            ActiveRunScreenRoot(
+                onServiceToggle = { shouldServiceRun ->
+                    if(shouldServiceRun){
+                        context.startService(ActiveRunService.createStartIntent(
+                            context = context,
+                            activityClass = MainActivity::class.java
+                        ))
+                    }else{
+                        context.startService(ActiveRunService.createStopIntent(context = context,))
+                    }
 
+                }
+            )
+        }
     }
 }
