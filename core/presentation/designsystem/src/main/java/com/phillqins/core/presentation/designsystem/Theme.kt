@@ -24,7 +24,8 @@ val DarkColorScheme = darkColorScheme(
     onSurface = RunneyWhite,
     onSurfaceVariant = RunneyGray,
     onTertiary = RunneyBlack,
-    error = RunneyDarkRed
+    error = RunneyDarkRed,
+    errorContainer = RunneyDarkRed5
 )
 
 @Composable
