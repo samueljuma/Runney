@@ -36,11 +36,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import com.phillqins.core.domain.location.Location
 import com.phillqins.core.domain.run.Run
@@ -296,7 +294,7 @@ private fun RunListItemPreview() {
                 dateTimeUtc = ZonedDateTime.now(),
                 distanceMeters = 4262,
                 location = Location(0.0, 0.0),
-                maxSpeedKm = 16.6260,
+                maxSpeedKmh = 16.6260,
                 totalElevationMeters = 123,
                 mapPictureUrl = null
             ).toRunUi(),

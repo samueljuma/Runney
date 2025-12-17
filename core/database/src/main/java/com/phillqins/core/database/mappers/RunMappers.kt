@@ -18,7 +18,7 @@ fun RunEntity.toRun(): Run {
             lat = latitude,
             long = longitude,
         ),
-        maxSpeedKm = maxSpeedKmh,
+        maxSpeedKmh = maxSpeedKmh,
         totalElevationMeters = totalElevationMeters,
         mapPictureUrl = mapPictureUrl
     )
@@ -28,7 +28,7 @@ fun Run.toRunEntity(): RunEntity {
     return RunEntity(
         id = id ?: ObjectId().toHexString(),
         durationMillis = duration.inWholeMilliseconds,
-        maxSpeedKmh = maxSpeedKm,
+        maxSpeedKmh = maxSpeedKmh,
         dateTimeUtc = dateTimeUtc.toInstant().toString(),
         latitude = location.lat,
         longitude = location.long,
