@@ -6,6 +6,7 @@ import com.phillqins.auth.presentation.di.authViewModelModule
 import com.phillqins.core.data.di.coreDataModule
 import com.phillqins.core.database.di.databaseModule
 import com.phillqins.run.location.di.locationModule
+import com.phillqins.run.network.di.networkModule
 import com.phillqins.run.presentation.di.runPresentationModule
 import com.phillqins.runney.di.appModule
 import kotlinx.coroutines.CoroutineScope
@@ -34,7 +35,8 @@ class RunneyApp: Application() {
                 appModule,
                 runPresentationModule,
                 locationModule,
-                databaseModule
+                databaseModule,
+                networkModule
             )
         }
     }

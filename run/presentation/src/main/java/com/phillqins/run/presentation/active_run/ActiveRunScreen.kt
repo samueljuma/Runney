@@ -6,6 +6,7 @@ import android.Manifest
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Build
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -24,7 +25,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.phillqins.core.presentation.designsystem.PauseIcon
 import com.phillqins.core.presentation.designsystem.RunneyTheme
 import com.phillqins.core.presentation.designsystem.StartIcon
 import com.phillqins.core.presentation.designsystem.StopIcon
@@ -34,6 +34,7 @@ import com.phillqins.core.presentation.designsystem.components.RunneyFloatingAct
 import com.phillqins.core.presentation.designsystem.components.RunneyOutlinedActionButton
 import com.phillqins.core.presentation.designsystem.components.RunneyScaffold
 import com.phillqins.core.presentation.designsystem.components.RunneyToolbar
+import com.phillqins.core.presentation.ui.ObserveAsEvents
 import com.phillqins.run.presentation.R
 import com.phillqins.run.presentation.active_run.components.RunDataCard
 import com.phillqins.run.presentation.active_run.maps.TrackerMap
@@ -42,18 +43,42 @@ import com.phillqins.run.presentation.util.hasLocationPermission
 import com.phillqins.run.presentation.util.hasNotificationPermission
 import com.phillqins.run.presentation.util.shouldShowLocationPermissionRationale
 import com.phillqins.run.presentation.util.shouldShowNotificationPermissionRationale
+import com.phillqins.run.presentation.util.showLongToast
 import org.koin.androidx.compose.koinViewModel
+import timber.log.Timber
 import java.io.ByteArrayOutputStream
 
 @Composable
 fun ActiveRunScreenRoot(
     onServiceToggle: (isServiceRunning: Boolean) -> Unit,
+    onFinish: () -> Unit,
+    onBack: () -> Unit,
     viewModel: ActiveRunViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
+    ObserveAsEvents(viewModel.event) { event ->
+        when(event){
+            is ActiveRunEvent.Error -> {
+                context.showLongToast(event.error.asString(context))
+            }
+            ActiveRunEvent.RunSaved -> onFinish()
+        }
+    }
     ActiveRunScreen(
         state = viewModel.state,
         onServiceToggle = onServiceToggle,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when(action){
+                is ActiveRunAction.OnBackClick ->{
+                    if(!viewModel.state.hasStartedRunning){
+                        onBack()
+                    }
+                }
+                else -> Unit
+            }
+            viewModel.onAction(action)
+
+        }
     )
 }
 

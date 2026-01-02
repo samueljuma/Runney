@@ -71,11 +71,13 @@ fun TrackerMap(
     val markerState = rememberUpdatedMarkerState()
     val markerPositionLat by animateFloatAsState(
         targetValue = currentLocation?.lat?.toFloat() ?: 0f,
-        animationSpec = tween(500)
+        animationSpec = tween(500),
+        label = ""
     )
     val markerPositionLong by animateFloatAsState(
         targetValue = currentLocation?.long?.toFloat() ?: 0f,
-        animationSpec = tween(500)
+        animationSpec = tween(500),
+        label = ""
     )
 
     val markerPosition = remember(markerPositionLat, markerPositionLong) {
@@ -98,8 +100,6 @@ fun TrackerMap(
     }
 
     var triggerCapture by remember { mutableStateOf(false) }
-
-    var createSnapshotJob: Job? = remember { null }
 
 
     GoogleMap(
@@ -127,8 +127,8 @@ fun TrackerMap(
     ) {
         RunneyPolylines(locations = locations,)
 
-        MapEffect(locations, isRunFinished, triggerCapture, createSnapshotJob) { map ->
-            if(isRunFinished && triggerCapture && createSnapshotJob == null){
+        MapEffect(locations, isRunFinished, triggerCapture) { map ->
+            if(isRunFinished && triggerCapture){
                 triggerCapture = false
 
                 val boundsBuilder = LatLngBounds.builder()
@@ -148,10 +148,7 @@ fun TrackerMap(
                     )
                 )
 
-                map.setOnCameraIdleListener {
-                    createSnapshotJob?.cancel()
-                }
-                createSnapshotJob = GlobalScope.launch { // Global scope ensures we outlive the lifecycle of the composable
+                launch {
                     //Make sure the map is sharp and focused before taking
                     // the screenshot
                     delay(500L)
