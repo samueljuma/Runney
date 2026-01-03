@@ -1,5 +1,7 @@
 package com.phillqins.core.data.run
 
+import com.phillqins.core.data.networking.get
+import com.phillqins.core.data.networking.post
 import com.phillqins.core.database.dao.RunPendingSyncDao
 import com.phillqins.core.database.mappers.toRun
 import com.phillqins.core.domain.SessionStorage
@@ -13,6 +15,9 @@ import com.phillqins.core.domain.util.DataError
 import com.phillqins.core.domain.util.EmptyResult
 import com.phillqins.core.domain.util.Result
 import com.phillqins.core.domain.util.asEmptyDataResult
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.auth.authProvider
+import io.ktor.client.plugins.auth.providers.BearerAuthProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -27,7 +32,8 @@ class OfflineFirstRunRepository(
     private val runPendingSyncDao: RunPendingSyncDao,
     private val applicationScope: CoroutineScope,
     private val sessionStorage: SessionStorage,
-    private val syncRunScheduler: SyncRunScheduler
+    private val syncRunScheduler: SyncRunScheduler,
+    private val client: HttpClient
 ): RunRepository {
     override fun getRuns(): Flow<List<Run>> {
         return localRunDataSource.getRuns()
@@ -153,6 +159,20 @@ class OfflineFirstRunRepository(
             createJobs.joinAll()
             deleteJobs.joinAll()
         }
+    }
+
+    override suspend fun deleteAllRuns() {
+        localRunDataSource.deleteAllRuns()
+    }
+
+    override suspend fun logout(): EmptyResult<DataError.Network> {
+        val result = client.get<Unit>(
+            route = "/logout"
+        ).asEmptyDataResult()
+
+        client.authProvider<BearerAuthProvider>()?.clearToken()
+
+        return result
     }
 }
 
