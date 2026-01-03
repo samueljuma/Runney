@@ -5,6 +5,7 @@ import com.phillqins.auth.data.di.authDataModule
 import com.phillqins.auth.presentation.di.authViewModelModule
 import com.phillqins.core.data.di.coreDataModule
 import com.phillqins.core.database.di.databaseModule
+import com.phillqins.run.data.di.runDataModule
 import com.phillqins.run.location.di.locationModule
 import com.phillqins.run.network.di.networkModule
 import com.phillqins.run.presentation.di.runPresentationModule
@@ -13,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
@@ -28,6 +30,7 @@ class RunneyApp: Application() {
         startKoin {
             androidLogger()
             androidContext(this@RunneyApp)
+            workManagerFactory()
             modules(
                 authDataModule,
                 authViewModelModule,
@@ -36,7 +39,8 @@ class RunneyApp: Application() {
                 runPresentationModule,
                 locationModule,
                 databaseModule,
-                networkModule
+                networkModule,
+                runDataModule
             )
         }
     }
