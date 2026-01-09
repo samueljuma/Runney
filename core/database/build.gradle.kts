@@ -9,5 +9,6 @@ android {
 
 dependencies {
     implementation(libs.org.mongodb.bson) // Helps generate ids from the client side
+    implementation(libs.bundles.koin)
     implementation(projects.core.domain)
 }
