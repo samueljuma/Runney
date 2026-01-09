@@ -62,7 +62,7 @@ class SyncRunWorkerScheduler(
             .setBackoffCriteria(
                 backoffPolicy = BackoffPolicy.EXPONENTIAL,
                 backoffDelay = 2000L,
-                timeUnit = TimeUnit.MICROSECONDS
+                timeUnit = TimeUnit.MILLISECONDS
             )
             .setInputData(
                 Data.Builder()
@@ -98,7 +98,7 @@ class SyncRunWorkerScheduler(
             .setBackoffCriteria(
                 backoffPolicy = BackoffPolicy.EXPONENTIAL,
                 backoffDelay = 2000L,
-                timeUnit = TimeUnit.MICROSECONDS
+                timeUnit = TimeUnit.MILLISECONDS
             )
             .setInputData(
                 Data.Builder()
@@ -133,7 +133,7 @@ class SyncRunWorkerScheduler(
             .setBackoffCriteria(
                 backoffPolicy = BackoffPolicy.EXPONENTIAL,
                 backoffDelay = 2000L,
-                timeUnit = TimeUnit.MICROSECONDS
+                timeUnit = TimeUnit.MILLISECONDS
             )
             .setInitialDelay(
                 duration = 30,
